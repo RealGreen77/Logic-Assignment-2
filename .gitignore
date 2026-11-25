@@ -1,0 +1,32 @@
+# Dafny compiled target code and runtime directories
+Assignment2-py/
+Task1_Clamp-py/
+Task2_Prime-py/
+Task3_LargestPrimeFactor-py/
+Task4_MaxProfit-py/
+*-py/
+*_py/
+__pycache__/
+*.pyc
+
+# Dafny intermediate and target language build files
+*.dtr
+*.cs
+*.dll
+*.exe
+*.csproj
+*.bpl
+
+# Local binaries and symlinks
+dafny
+
+# Editor and IDE configurations
+.vscode/
+.idea/
+
+# Local submission packages
+*.zip
+
+# Operating system files
+.DS_Store
+Thumbs.db
