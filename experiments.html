@@ -141,6 +141,11 @@
       color: #e0f2fe;
       border-color: var(--accent-blue);
     }
+    .filter-count {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      margin-left: auto;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -151,6 +156,9 @@
       text-align: left;
       border-bottom: 1px solid var(--card-border);
       vertical-align: top;
+    }
+    td:nth-child(1), td:nth-child(2) {
+      white-space: nowrap;
     }
     th {
       background: rgba(255, 255, 255, 0.03);
@@ -310,11 +318,12 @@
       </div>
 
       <div class="filter-row">
-        <span class="filter-label">Filter cards by outcome:</span>
-        <button class="filter-btn active" onclick="filterCards('all', this)">All (27)</button>
-        <button class="filter-btn" onclick="filterCards('pill-red', this)">Failed Verification</button>
-        <button class="filter-btn" onclick="filterCards('pill-amber', this)">Underspecified / Timeout</button>
-        <button class="filter-btn" onclick="filterCards('pill-green', this)">Verified</button>
+        <span class="filter-label">Filter by outcome:</span>
+        <button type="button" class="filter-btn active" onclick="filterCards('all', this)">All (27)</button>
+        <button type="button" class="filter-btn" onclick="filterCards('pill-red', this)">Failed Verification (16)</button>
+        <button type="button" class="filter-btn" onclick="filterCards('pill-amber', this)">Underspecified / Timeout (5)</button>
+        <button type="button" class="filter-btn" onclick="filterCards('pill-green', this)">Verified (6)</button>
+        <span id="filter-count" class="filter-count">Showing 27 of 27</span>
       </div>
 
       <div style="overflow-x:auto;">
@@ -2443,13 +2452,24 @@ MaxProfit([1, 2, 3, 4, 5]) = 4 [OK]
     function filterCards(statusClass, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      document.querySelectorAll('.exp-box').forEach(card => {
-        if (statusClass === 'all' || card.dataset.status === statusClass) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
+
+      const rows = document.querySelectorAll('tbody tr[data-status]');
+      let shown = 0;
+      rows.forEach(row => {
+        const match = statusClass === 'all' || row.dataset.status === statusClass;
+        row.classList.toggle('hidden', !match);
+        if (match) shown++;
       });
+
+      document.querySelectorAll('.exp-box[data-status]').forEach(card => {
+        const match = statusClass === 'all' || card.dataset.status === statusClass;
+        card.classList.toggle('hidden', !match);
+      });
+
+      const counter = document.getElementById('filter-count');
+      if (counter) {
+        counter.textContent = 'Showing ' + shown + ' of ' + rows.length;
+      }
     }
   </script>
 </body>
