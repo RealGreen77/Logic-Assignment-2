@@ -6,16 +6,26 @@ Task3_LargestPrimeFactor-py/
 Task4_MaxProfit-py/
 *-py/
 *_py/
+*-cs/
+*-java/
+*-go/
+*-js/
+*-cpp/
 __pycache__/
 *.pyc
 
 # Dafny intermediate and target language build files
 *.dtr
 *.cs
+*.csproj
 *.dll
 *.exe
-*.csproj
+*.pdb
 *.bpl
+*.runtimeconfig.json
+*.deps.json
+bin/
+obj/
 
 # Local binaries and symlinks
 dafny

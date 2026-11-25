@@ -41,9 +41,17 @@ echo ""
 echo "======================================================================"
 echo "STEP 2: RUNTIME TEST SUITES (dafny run -t py)"
 echo "======================================================================"
+cleanup() {
+    for f in "${FILES[@]}"; do
+        rm -rf "${f%.dfy}-py"
+    done
+}
+trap cleanup EXIT
+
 for f in "${FILES[@]}"; do
     echo ">>> Executing test harness in $f ..."
     dafny run -t py "$f"
+    rm -rf "${f%.dfy}-py"
     echo "----------------------------------------------------------------------"
 done
 
